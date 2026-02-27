@@ -24,8 +24,8 @@
     "verify": "bash scripts/verify-exports.sh"
   },
   "dependencies": {
-    "@wlearn/core": "file:../wlearn/packages/core",
-    "@wlearn/types": "file:../wlearn/packages/types"
+    "@wlearn/core": "0.1.0",
+    "@wlearn/types": "0.1.0"
   },
   "keywords": [
     "bart",
