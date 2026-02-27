@@ -1,0 +1,41 @@
+{
+  "name": "@wlearn/stochtree",
+  "version": "0.1.0",
+  "description": "StochTree BART (Bayesian Additive Regression Trees) compiled to WebAssembly",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": [
+    "src/",
+    "wasm/",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "node test/test.js",
+    "build": "bash scripts/build-wasm.sh",
+    "verify": "bash scripts/verify-exports.sh"
+  },
+  "dependencies": {
+    "@wlearn/core": "file:../wlearn/packages/core",
+    "@wlearn/types": "file:../wlearn/packages/types"
+  },
+  "keywords": [
+    "bart",
+    "bayesian-additive-regression-trees",
+    "stochtree",
+    "machine-learning",
+    "wasm",
+    "webassembly",
+    "wlearn"
+  ],
+  "author": "Anton Zemlyansky",
+  "license": "MIT"
+}

@@ -1,0 +1,3 @@
+[submodule "upstream/stochtree"]
+	path = upstream/stochtree
+	url = https://github.com/StochasticTree/stochtree

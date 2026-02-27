@@ -1,0 +1,10 @@
+upstream/
+csrc/
+scripts/
+patches/
+test/
+.git*
+.claude/
+AGENTS.md
+CLAUDE.md
+PLAN.md
