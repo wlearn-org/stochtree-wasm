@@ -2,10 +2,13 @@
   "name": "@wlearn/stochtree",
   "version": "0.1.0",
   "description": "StochTree BART (Bayesian Additive Regression Trees) compiled to WebAssembly",
-  "type": "module",
+  "type": "commonjs",
   "main": "src/index.js",
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "require": "./src/index.js",
+      "default": "./src/index.js"
+    }
   },
   "files": [
     "src/",

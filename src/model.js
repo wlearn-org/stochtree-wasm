@@ -1,10 +1,10 @@
-import { loadStochtree, getWasm } from './wasm.js'
-import {
+const { loadStochtree, getWasm } = require('./wasm.js')
+const {
   normalizeY,
   encodeBundle, decodeBundle,
   register,
   DisposedError, NotFittedError
-} from '@wlearn/core'
+} = require('@wlearn/core')
 
 // FinalizationRegistry safety net -- warns if dispose() was never called
 const leakRegistry = typeof FinalizationRegistry !== 'undefined'
@@ -23,7 +23,7 @@ function getLastError() {
   return getWasm().ccall('wl_st_get_last_error', 'string', [], [])
 }
 
-export class BARTModel {
+class BARTModel {
   #handle = null
   #freed = false
   #handleRef = null
@@ -464,3 +464,5 @@ export class BARTModel {
 
 register('wlearn.stochtree.classifier@1', async (m, t, b) => BARTModel._fromBundle(m, t, b))
 register('wlearn.stochtree.regressor@1', async (m, t, b) => BARTModel._fromBundle(m, t, b))
+
+module.exports = { BARTModel }

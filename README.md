@@ -17,7 +17,7 @@ Requires `@wlearn/core` and `@wlearn/types`.
 ### Regression
 
 ```js
-import { BARTModel } from '@wlearn/stochtree'
+const { BARTModel } = require('@wlearn/stochtree')
 
 const model = await BARTModel.create({
   numTrees: 200,
@@ -62,7 +62,7 @@ const bundle = model.save()  // Uint8Array (WLRN format)
 const loaded = await BARTModel.load(bundle)
 
 // Or via @wlearn/core registry
-import { load } from '@wlearn/core'
+const { load } = require('@wlearn/core')
 const model2 = await load(bundle)
 ```
 
