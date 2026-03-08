@@ -100,7 +100,7 @@ em++ \
   -DEIGEN_MPL2_ONLY \
   -fexceptions \
   $INCLUDES \
-  -o "${OUTPUT_DIR}/stochtree.cjs" \
+  -o "${OUTPUT_DIR}/stochtree.js" \
   -s MODULARIZE=1 \
   -s SINGLE_FILE=1 \
   -s EXPORT_NAME=createStochtree \
@@ -122,5 +122,5 @@ wasm_embedded: true
 EOF
 
 echo "=== Build complete ==="
-ls -lh "${OUTPUT_DIR}/stochtree.cjs"
+ls -lh "${OUTPUT_DIR}/stochtree.js"
 cat "${OUTPUT_DIR}/BUILD_INFO"

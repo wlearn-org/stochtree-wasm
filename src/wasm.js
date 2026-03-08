@@ -9,7 +9,7 @@ async function loadStochtree(options = {}) {
 
   loading = (async () => {
     // SINGLE_FILE=1: .wasm is embedded in the .js file, no locateFile needed
-    const createStochtree = require('../wasm/stochtree.cjs')
+    const createStochtree = require('../wasm/stochtree.js')
     wasmModule = await createStochtree(options)
     return wasmModule
   })()
