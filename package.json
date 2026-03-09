@@ -40,5 +40,9 @@
     "wlearn"
   ],
   "author": "Anton Zemlyansky",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wlearn-org/stochtree-wasm.git"
+  },
   "license": "MIT"
 }
