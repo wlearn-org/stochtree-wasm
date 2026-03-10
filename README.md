@@ -20,6 +20,7 @@ Requires `@wlearn/core` and `@wlearn/types`.
 const { BARTModel } = require('@wlearn/stochtree')
 
 const model = await BARTModel.create({
+  task: 'regression',  // or 'classification'; auto-detected from labels if omitted
   numTrees: 200,
   numSamples: 100,
   seed: 42
