@@ -1,6 +1,6 @@
 # @wlearn/stochtree
 
-WASM port of [stochtree](https://github.com/StochasticTree/stochtree) -- Bayesian Additive Regression Trees (BART) for browser and Node.js.
+WASM port of [stochtree](https://github.com/StochasticTree/stochtree) -- Bayesian Additive Regression Trees (BART) for browser and Node.js. Part of [wlearn](https://wlearn.org) ([GitHub](https://github.com/wlearn-org), [all packages](https://github.com/wlearn-org/wlearn#repository-structure)).
 
 BART fits an ensemble of decision trees via MCMC sampling, providing full posterior inference with uncertainty quantification.
 
