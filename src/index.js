@@ -1,10 +1,13 @@
 const { loadStochtree, getWasm } = require('./wasm.js')
-const { BARTModel } = require('./model.js')
+const { BARTModel: BARTModelImpl } = require('./model.js')
+const { createModelClass } = require('@wlearn/core')
+
+const BARTModel = createModelClass(BARTModelImpl, BARTModelImpl, { name: 'BARTModel', load: loadStochtree })
 
 // Convenience: create, fit, return fitted model
 async function train(params, X, y) {
   const model = await BARTModel.create(params)
-  model.fit(X, y)
+  await model.fit(X, y)
   return model
 }
 
