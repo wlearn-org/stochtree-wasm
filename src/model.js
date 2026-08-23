@@ -84,8 +84,20 @@ class BARTModel {
       throw new Error(`y length (${yNorm.length}) does not match X rows (${rows})`)
     }
 
-    // Determine task
-    const isRegressor = this.#params.objective === 'regression' || this.#detectRegression(yNorm)
+    // An explicit backend objective wins. Otherwise the unified `task` contract
+    // overrides label heuristics, which is essential for integer-valued regression.
+    let isRegressor
+    if (this.#params.objective != null) {
+      isRegressor = this.#params.objective === 'regression'
+    } else if (this.#params.task === 'regression') {
+      isRegressor = true
+    } else if (this.#params.task === 'classification') {
+      isRegressor = false
+    } else if (this.#params.task != null) {
+      throw new Error(`Unknown task: '${this.#params.task}'. Use 'classification' or 'regression'.`)
+    } else {
+      isRegressor = this.#detectRegression(yNorm)
+    }
     this.#isRegressor = isRegressor
 
     if (!isRegressor) {

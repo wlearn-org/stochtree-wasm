@@ -1,6 +1,6 @@
 {
   "name": "@wlearn/stochtree",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "StochTree BART (Bayesian Additive Regression Trees) compiled to WebAssembly",
   "type": "commonjs",
   "main": "src/index.js",
@@ -15,8 +15,7 @@
     "wasm/",
     "dist/",
     "LICENSE",
-    "README.md",
-    "CHANGELOG.md"
+    "README.md"
   ],
   "sideEffects": false,
   "publishConfig": {
@@ -31,7 +30,7 @@
     "prepublishOnly": "node scripts/prepublish.js"
   },
   "dependencies": {
-    "@wlearn/core": "0.2.0"
+    "@wlearn/core": "^0.3.0"
   },
   "keywords": [
     "bart",

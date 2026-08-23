@@ -17,6 +17,7 @@ Requires `@wlearn/core` and `@wlearn/types`.
 ### Regression
 
 ```js
+const { readFileSync, writeFileSync } = require('fs')
 const { BARTModel } = require('@wlearn/stochtree')
 
 const model = await BARTModel.create({
@@ -59,12 +60,12 @@ const sigma2 = model.getSigma2Samples()
 ### Save / Load
 
 ```js
-const bundle = model.save()  // Uint8Array (WLRN format)
-const loaded = await BARTModel.load(bundle)
+writeFileSync('bart.wlrn', model.save())
+const loaded = await BARTModel.load(readFileSync('bart.wlrn'))
 
 // Or via @wlearn/core registry
 const { load } = require('@wlearn/core')
-const model2 = await load(bundle)
+const model2 = await load(readFileSync('bart.wlrn'))
 ```
 
 ## Parameters
@@ -92,8 +93,8 @@ const model2 = await load(bundle)
 - `model.score(X, y)` -- R-squared (regression) or accuracy (classification)
 - `model.predictPosterior(X)` -- per-sample posterior predictions
 - `model.getSigma2Samples()` -- posterior variance samples
-- `model.save()` / `BARTModel.load(bytes)` -- serialization
-- `model.dispose()` -- free WASM resources
+- `model.save()` / `BARTModel.load(bytes)` -- WLRN serialization
+- `model.dispose()` -- deterministic cleanup for long-running loops
 - `model.getParams()` / `model.setParams(p)` -- parameter management
 - `BARTModel.defaultSearchSpace()` -- AutoML search space
 
