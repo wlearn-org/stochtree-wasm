@@ -1,0 +1,11 @@
+@wlearn/stochtree
+
+The WebAssembly build includes Eigen under MPL-2.0 and permissive
+licenses. EIGEN_MPL2_ONLY excludes its GPL/LGPL-only modules.
+Eigen source files are unmodified. Corresponding source, including its
+copyright notices, is available under those licenses at:
+https://gitlab.com/libeigen/eigen/-/tree/9df21dc8b4b576a7aa5c0094daa8d7e8b8be60f0
+https://gitlab.com/libeigen/eigen/-/archive/9df21dc8b4b576a7aa5c0094daa8d7e8b8be60f0/eigen-9df21dc8b4b576a7aa5c0094daa8d7e8b8be60f0.tar.gz
+
+Dependency license texts and attribution are included in licenses/.
+Browser bundles also contain @wlearn/core under Apache-2.0.

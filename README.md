@@ -115,4 +115,4 @@ npm test
 
 ## License
 
-MIT. Upstream stochtree is MIT licensed.
+StochTree [v0.4.5](https://github.com/StochasticTree/stochtree/tree/v0.4.5) and the wrapper are MIT licensed. Embedded dependencies also use Apache-2.0, Boost, BSD and MPL-2.0 licenses; see `LICENSE`, `NOTICE` and `licenses/`. `NOTICE` links the unmodified Eigen source. The build defines `EIGEN_MPL2_ONLY` to exclude GPL/LGPL-only Eigen modules.

@@ -112,9 +112,12 @@ em++ \
   -s ENVIRONMENT='web,node' \
   -s FORCE_FILESYSTEM=0
 
+echo "=== Verifying exports ==="
+bash "${SCRIPT_DIR}/verify-exports.sh"
+
 echo "=== Writing BUILD_INFO ==="
 cat > "${OUTPUT_DIR}/BUILD_INFO" <<EOF
-upstream: StochasticTree/stochtree
+upstream: StochasticTree/stochtree v0.4.5
 upstream_commit: $(cd "$UPSTREAM_DIR" && git rev-parse HEAD 2>/dev/null || echo "unknown")
 build_date: $(date -u +%Y-%m-%dT%H:%M:%SZ)
 emscripten: $(em++ --version | head -1)

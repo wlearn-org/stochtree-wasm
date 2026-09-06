@@ -59,6 +59,30 @@ const bundles = [
   { name: 'ESM',  file: `dist/${NAME}.mjs`, type: 'esm' },
 ]
 
+async function exerciseModel(Model) {
+  const X = Array.from({ length: 40 }, (_, i) => [i / 10, (i * 7 % 11) / 10])
+  const y = Float64Array.from(X, ([a, b]) => 2 * a + b + 0.1)
+  const model = await Model.create({ task: 'regression', numTrees: 10, numGfr: 5, numBurnin: 5, numSamples: 5, seed: 42 })
+  let restored
+  try {
+    model.fit(X, y)
+    const expected = model.predict(X)
+    if (expected.length !== y.length || !expected.every(Number.isFinite) ||
+        new Set(expected).size < 2) {
+      throw new Error('expected a learned, finite response for every row')
+    }
+    restored = await Model.load(model.save())
+    const actual = restored.predict(X)
+    if (actual.length !== expected.length || actual.some((value, i) =>
+      !Number.isFinite(value) || Math.abs(value - expected[i]) > 1e-10)) {
+      throw new Error('WLRN round trip changed predictions')
+    }
+  } finally {
+    if (restored) restored.dispose()
+    model.dispose()
+  }
+}
+
 function makeIifeHtml(jsPath, globalName, exportKeys) {
   return `<!DOCTYPE html><html><body>
 <script src="${jsPath}"></script>
@@ -69,6 +93,7 @@ async function runTest() {
     var expected = ${JSON.stringify(exportKeys)}
     var missing = expected.filter(function(k) { return !(k in lib) })
     if (missing.length) return { ok: false, error: 'missing exports: ' + missing.join(', ') }
+    await (${exerciseModel.toString()})(lib.BARTModel)
     var types = {}
     expected.forEach(function(k) { types[k] = typeof lib[k] })
     return { ok: true, exports: expected.length, types: types }
@@ -85,6 +110,7 @@ function makeEsmHtml(jsPath, exportKeys) {
 import { ${imports} } from '${jsPath}'
 async function runTest() {
   try {
+    await (${exerciseModel.toString()})(BARTModel)
     var types = {}
     var exports = [${exportKeys.map(k => `['${k}', ${k}]`).join(', ')}]
     exports.forEach(function(e) { types[e[0]] = typeof e[1] })

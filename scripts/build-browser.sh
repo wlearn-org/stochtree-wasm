@@ -85,5 +85,26 @@ DESTRUCTURE=$(IFS=','; echo "${KEYS[*]}")
 EXPORT_LINE=$(IFS=','; echo "${KEYS[*]}")
 echo "var {${DESTRUCTURE}}=${INTERNAL};export{${EXPORT_LINE}};" >> "${DIST_DIR}/${NAME}.mjs"
 
+# Standalone CDN files must retain notices even when copied without the package.
+node - "$PROJECT_DIR" "$NAME" <<'NODE'
+const fs = require('fs')
+const path = require('path')
+const [root, name] = process.argv.slice(2)
+function readTree(dir) {
+  return fs.readdirSync(path.join(root, dir)).sort().flatMap(name => {
+    const file = path.join(dir, name)
+    return fs.statSync(path.join(root, file)).isDirectory() ? readTree(file) : [file]
+  })
+}
+const files = ['LICENSE', 'NOTICE'].filter(file => fs.existsSync(path.join(root, file)))
+files.push(...readTree('licenses'))
+const text = files.map(file => file + '\n' + fs.readFileSync(path.join(root, file), 'utf8')).join('\n\n')
+const banner = Buffer.from('/*!\n' + text.replace(/\*\//g, '* /') + '\n*/\n')
+for (const extension of ['js', 'mjs']) {
+  const file = path.join(root, 'dist', name + '.' + extension)
+  fs.writeFileSync(file, Buffer.concat([banner, fs.readFileSync(file)]))
+}
+NODE
+
 echo "=== Browser bundles built ==="
 ls -lh "${DIST_DIR}/${NAME}.js" "${DIST_DIR}/${NAME}.mjs"
